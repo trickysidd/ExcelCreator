@@ -1,3 +1,10 @@
-Pyinstaller
+pyinstaller
 openpyxl
 Pillow
+tkinter
+os
+tempfile
+shutil
+threading
+datetime
+pathlib
