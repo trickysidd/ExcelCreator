@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Excel_Creator
-        path: D:\a\ExcelCreator\ExcelCreator\dist\Excel-Creator.exe
+        path: D:\a\ExcelCreator\ExcelCreator\dist\Excel_Creator.exe
