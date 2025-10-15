@@ -27,7 +27,7 @@ jobs:
       - name: Use 'pip download' to fetch all dependencies as wheel files
         # Reads requirements.txt and downloads all necessary .whl files to 'wheelhouse/'
         run: |
-          pip download -r requirements.txt --wheel-dir=wheelhouse
+          pip download -r requirements.txt --dest=wheelhouse
 
       - name: Create a single ZIP archive of the 'wheelhouse' directory
         # This makes it easy to download the entire package set as one artifact
