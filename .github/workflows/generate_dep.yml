@@ -1,0 +1,51 @@
+name: Save Python Packages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  export-packages:
+    runs-on: windows-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # Step 3: Optionally install dependencies (example packages)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow openpyxl 
+
+      # Step 4: Generate requirements.txt with exact package versions
+      - name: Freeze installed Python packages
+        run: pip freeze > requirements.txt
+
+      # Step 5: Upload requirements.txt as an artifact to download later
+      - name: Upload requirements.txt
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-packages
+          path: requirements.txt
+
+       - name: Download Python packages
+              run: pip download -r requirements.txt -d downloaded_packages
+      
+            - name: Upload downloaded packages
+              uses: actions/upload-artifact@v3
+              with:
+                name: python-packages-wheel
+                path: downloaded_packages
+
+
+
+
