@@ -2,8 +2,8 @@ name: Save Python Packages
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   export-packages:
@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step 2: Set up Python environment
       - name: Set up Python 3.11
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
       # Step 3: Optionally install dependencies (example packages)
       - name: Install dependencies
@@ -28,10 +28,11 @@ jobs:
       # Step 4: Generate requirements.txt with exact package versions
       - name: Freeze installed Python packages
         run: pip freeze > requirements.txt
+        Write-Host "Generated requirements.txt"
 
       # Step 5: Upload requirements.txt as an artifact to download later
       - name: Upload requirements.txt
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-packages
           path: requirements.txt
