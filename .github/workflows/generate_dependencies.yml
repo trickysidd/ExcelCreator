@@ -31,8 +31,9 @@ jobs:
 
       - name: Create a single ZIP archive of the 'wheelhouse' directory
         # This makes it easy to download the entire package set as one artifact
-        run: |
-          zip -r offline_wheels.zip wheelhouse
+        run: Compress-Archive -Path wheelhouse\* -DestinationPath offline_wheels.zip
+        shell: pwsh
+          
 
       - name: Upload the compressed wheels archive as a GitHub Artifact
         uses: actions/upload-artifact@v4
