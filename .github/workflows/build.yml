@@ -42,7 +42,7 @@ jobs:
       
           # Move into correct SDK layout
           mkdir -p sdk/cmdline-tools/latest
-          mv cmdline-tools-temp/* sdk/cmdline-tools/latest/
+          mv cmdline-tools-temp/cmdline-tools/* sdk/cmdline-tools/latest/
       
           # Set environment variables
           export ANDROID_SDK_ROOT=$HOME/android/sdk
