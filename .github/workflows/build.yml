@@ -20,6 +20,9 @@ jobs:
         sudo apt install -y python3-pip zip unzip openjdk-11-jdk python3-kivy build-essential python3-dev
         pip3 install buildozer
         pip3 install Cython
+
+    - name: Accept Android SDK licenses
+      run: yes | sdkmanager --licenses || true
       
 
     - name: Build APK
