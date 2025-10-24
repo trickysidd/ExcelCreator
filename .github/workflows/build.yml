@@ -1,4 +1,4 @@
-name: Build Kivy APK
+name: Build Kivy APK with Buildozer
 
 on:
   push:
@@ -25,28 +25,31 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y python3-pip zip unzip openjdk-11-jdk python3-kivy build-essential python3-dev
+        sudo apt install -y python3-pip zip unzip openjdk-11-jdk tree python3-kivy build-essential python3-dev
         pip3 install buildozer
         pip3 install Cython
+        
 
-    - name: Trigger SDK install
-      run: buildozer android debug || true
-
-    - name: Debug SDK Layout
+    - name: Install Android SDK manually
       run: |
-        echo "Listing SDK COntents"
-        find $HOME/.buildozer/android/platform/android-sdk -type f -name "sdkmanager"
+        mkdir -p $HOME/android/sdk
+        cd $HOME/android
+        wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+        unzip cmdline-tools.zip -d cmdline-tools
+        mkdir -p sdk/cmdline-tools/latest
+        mv cmdline-tools/* sdk/cmdline-tools/latest/
+        export ANDROID_SDK_ROOT=$HOME/android/sdk
+        export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+        yes | sdkmanager --licenses || echo "⚠️ License acceptance failed or completed early — continuing"
+        sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
-    - name: Accept Android SDK licenses
+    - name: Configure Buildozer to use manual SDK
       run: |
-        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        export PATH=$ANDROID_SDK_ROOT/tools/bin:$PATH
-        yes | sdkmanager --licenses || echo "License acceptance Failedbut Continuing"
-      
+        sed -i '/^android.sdk_path/d' buildozer.spec
+        echo "android.sdk_path = $HOME/android/sdk" >> buildozer.spec
 
     - name: Build APK
-      run: |
-        buildozer android debug
+      run: buildozer android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
