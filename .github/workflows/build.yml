@@ -32,31 +32,30 @@ jobs:
 
     - name: Install Android SDK manually
       run: |
-        - name: Install Android SDK manually
-  run: |
-    mkdir -p $HOME/android/sdk
-    cd $HOME/android
-
-    # Download command-line tools
-    wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
-    unzip cmdline-tools.zip -d cmdline-tools-temp
-
-    # Move into correct SDK layout
-    mkdir -p sdk/cmdline-tools/latest
-    mv cmdline-tools-temp/* sdk/cmdline-tools/latest/
-
-    # Set environment variables
-    export ANDROID_SDK_ROOT=$HOME/android/sdk
-    export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-
-    # Verify sdkmanager exists
-    which sdkmanager || (echo "❌ sdkmanager not found" && exit 1)
-
-    # Accept licenses
-    yes | sdkmanager --licenses || echo "⚠️ License acceptance failed or completed early — continuing"
-
-    # Install required packages
-    sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+      
+          mkdir -p $HOME/android/sdk
+          cd $HOME/android
+      
+          # Download command-line tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d cmdline-tools-temp
+      
+          # Move into correct SDK layout
+          mkdir -p sdk/cmdline-tools/latest
+          mv cmdline-tools-temp/* sdk/cmdline-tools/latest/
+      
+          # Set environment variables
+          export ANDROID_SDK_ROOT=$HOME/android/sdk
+          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+      
+          # Verify sdkmanager exists
+          which sdkmanager || (echo "❌ sdkmanager not found" && exit 1)
+      
+          # Accept licenses
+          yes | sdkmanager --licenses || echo "⚠️ License acceptance failed or completed early — continuing"
+      
+          # Install required packages
+          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
 
     - name: Configure Buildozer to use manual SDK
