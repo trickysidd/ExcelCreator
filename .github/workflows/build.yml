@@ -61,6 +61,12 @@ jobs:
       run: |
         ls -l /home/runner/android/sdk
         ls -l /home/runner/android/sdk/ndk
+
+    - name: Create legacy sdkmanager symlink
+      run: |
+        mkdir -p $HOME/android/sdk/tools/bin
+        ln -s $HOME/android/sdk/cmdline-tools/latest/bin/sdkmanager $HOME/android/sdk/tools/bin/sdkmanager
+
         
     #- name: Configure Buildozer to use manual SDK
      # run: |
