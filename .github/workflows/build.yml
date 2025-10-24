@@ -57,11 +57,15 @@ jobs:
           # Install required packages
           sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "ndk;25.2.9519653"
 
-
-    - name: Configure Buildozer to use manual SDK
+    - name: confirm location
       run: |
-        sed -i '/^android.sdk_path/d' buildozer.spec
-        echo "android.sdk_path = $HOME/android/sdk" >> buildozer.spec
+        ls -l /home/runner/android/sdk
+        ls -l /home/runner/android/sdk/ndk
+        
+    #- name: Configure Buildozer to use manual SDK
+     # run: |
+      #  sed -i '/^android.sdk_path/d' buildozer.spec
+       # echo "android.sdk_path = $HOME/android/sdk" >> buildozer.spec
 
     - name: Build APK
       run: buildozer android debug
