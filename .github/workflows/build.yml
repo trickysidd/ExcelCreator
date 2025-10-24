@@ -32,6 +32,11 @@ jobs:
     - name: Trigger SDK install
       run: buildozer android debug || true
 
+    - name: Debug SDK Layout
+      run: |
+        echo "Listing SDK COntents"
+        find $HOME/.buildozer/android/platform/android-sdk -type f -name "sdkmanager"
+
     - name: Accept Android SDK licenses
       run: |
         export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
