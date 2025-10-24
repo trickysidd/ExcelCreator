@@ -55,7 +55,7 @@ jobs:
           yes | sdkmanager --licenses || echo "⚠️ License acceptance failed or completed early — continuing"
       
           # Install required packages
-          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "ndk;25.2.9519653"
 
 
     - name: Configure Buildozer to use manual SDK
