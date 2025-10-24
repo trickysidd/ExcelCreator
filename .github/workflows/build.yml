@@ -17,8 +17,9 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y python3-pip zip unzip openjdk-11-jdk
+        sudo apt install -y python3-pip zip unzip openjdk-11-jdk python3-kivy
         pip3 install buildozer
+      
 
     - name: Build APK
       run: |
