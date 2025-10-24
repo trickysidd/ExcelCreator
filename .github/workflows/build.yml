@@ -28,7 +28,7 @@ jobs:
       run: |
         export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
         export PATH=$ANDROID_SDK_ROOT/tools/bin:$PATH
-        yes | sdkmanager --licenses || true
+        yes | sdkmanager --licenses || echo "License acceptance Failedbut Continuing"
       
 
     - name: Build APK
