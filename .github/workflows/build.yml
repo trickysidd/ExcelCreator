@@ -26,8 +26,8 @@ jobs:
 
     - name: Accept Android SDK licenses
       run: |
-        export ANDROID_SDK_ROOT=$HOME/runner/.buildozer/android/platform/android-sdk
-        export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
+        export PATH=$ANDROID_SDK_ROOT/tools/bin:$PATH
         yes | sdkmanager --licenses || true
       
 
