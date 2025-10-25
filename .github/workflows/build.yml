@@ -73,11 +73,16 @@ jobs:
       #  sed -i '/^android.sdk_path/d' buildozer.spec
        # echo "android.sdk_path = $HOME/android/sdk" >> buildozer.spec
 
-    - name: Autotools setup
+    - name: Install Autoconf 2.69
       run: |
-        autoupdate
-        autoreconf -i
-        ./configure
+        sudo apt-get remove -y autoconf
+        wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+        tar -xzf autoconf-2.69.tar.gz
+        cd autoconf-2.69
+        ./configure --prefix=/usr
+        make
+        sudo make install
+
 
 
     - name: Build APK
