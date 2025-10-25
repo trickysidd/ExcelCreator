@@ -73,6 +73,13 @@ jobs:
       #  sed -i '/^android.sdk_path/d' buildozer.spec
        # echo "android.sdk_path = $HOME/android/sdk" >> buildozer.spec
 
+    - name: Autotools setup
+      run: |
+        autoupdate
+        autoreconf -i
+        ./configure
+
+
     - name: Build APK
       run: buildozer android debug
 
